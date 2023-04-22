@@ -41,6 +41,7 @@ body{
 	color : #DD0031;
 	object-fit: contain;
 	font-size: 24px;
+	cursor: pointer;
 }
 .newsItemAgo{
 	display: flex;
@@ -69,7 +70,6 @@ body{
 	font-family: 'Roboto', sans-serif;
 }
 header{
-
 	height: 3.125rem;
 	margin: 0 0 2.375rem;
 	padding: 1rem 67.625rem 2.625rem 9.375rem;
@@ -78,16 +78,16 @@ header{
 }
 header > h1{
 	width: 13rem;
-  height: 1.75rem;
-  object-fit: contain;
-  font-family: Baskerville;
-  font-size: 1.75rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  color: #3b3b3b;
+	height: 1.75rem;
+	object-fit: contain;
+	font-family: Baskerville;
+	font-size: 1.75rem;
+	font-weight: normal;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1;
+	letter-spacing: normal;
+	color: #3b3b3b;
 }
 
 .btnFilter.active{
@@ -125,28 +125,35 @@ header > h1{
 }
 .dropNews{
 	width: 15rem;
-
 	margin: 1.938rem 7.125rem 0.063rem 8.675rem;
-	padding: 0.313rem 0.75rem 0.313rem 0.75rem;
-	
-	font-family: "Font Awesome 5 Free", Open Sans;
+	padding: 0.313rem 0.75rem 0.313rem 0.75rem;	
 }
 .newsOption{
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-  }
-
-  .newsLogo{
+}
+.newsLogo{
 	width: 25px;
 	height: 20px;
 	margin-right: 8px;
-	
-  }
-  
-  .selectedLogo{
+}
+.selectedLogo{
 	width: 35px;
 	height: 20px;
 	margin-right: 8px;
-  }
-  
+}
+.loader {
+	border: 16px solid #f3f3f3;
+	border-top: 16px solid #828282; 
+	border-radius: 50%;
+	width: 120px;
+	height: 120px;
+	animation: spin 2s linear infinite;
+	margin: 5.938rem 0rem 5.063rem 32rem;
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}

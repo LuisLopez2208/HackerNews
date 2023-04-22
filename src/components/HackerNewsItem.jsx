@@ -1,14 +1,38 @@
 import { 
+	useState, 
+	useEffect
+} from "react";
+import { 
 	FaHeart ,
+	FaRegHeart,
 	FaRegClock
 } from "react-icons/fa";
 export const HackerNewsItem = ({
-	item
+	item,
+	setAFav
 }) => {
-	const { created_at, author, story_title, story_url } = item
+	const setIsFav = item => {
+		const favsStorage = JSON.parse(localStorage.getItem('favs')) ?? []	
+		if( favsStorage.some( favIterator => favIterator.id == item.id ) ){
+			item.fav = true 
+		}
+	}
+	setIsFav(item)
+	const { created_at, author, story_title, story_url, id, fav } = item	
+	const [favState, setFavState ] = useState(fav)
+	
 	const setDateAgo = date => {
 		return "Date"
 	}
+	const handleFavClick = () => {	
+		setFavState(!favState)
+		
+	}
+	useEffect( () => {
+		setAFav([{
+			created_at, author, story_title, story_url, id, fav : favState
+		}],favState)
+	},[ favState]) 
 	return (
 		<div className="newsItem">
 			<div className="newsItemText">
@@ -21,8 +45,8 @@ export const HackerNewsItem = ({
 				</div>
 
 			</div>
-			<div className="newsItemIcon">
-				<FaHeart className="heartIcon"/>
+			<div className="newsItemIcon" onClick={ handleFavClick }>
+				{ favState ? <FaHeart className="heartIcon" /> : <FaRegHeart className="heartIcon"/>}
 			</div>
 		</div>
 	)
