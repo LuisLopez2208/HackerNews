@@ -8,8 +8,11 @@ export function useNews(){
 		setIsAll( !isAll )
 	 }
 	const getNews = async newsSelected =>{
+		setIsAll(true)
+		if(!!!newsSelected.value )
+		return
 		try {
-			setIsAll(true)
+			
 			setIsLoading(true)
 			const hackerNews = await getNewsApi(newsSelected.value)
 			setNews(hackerNews.hits)	
@@ -26,7 +29,7 @@ export function useNews(){
 		const favs = JSON.parse(localStorage.getItem('favs')) ?? []
 		localStorage.removeItem("favs")
 		if( isFav ){
-			if( favs.length == 0 || favs.some( favIterator => favIterator.id != fav[0].id ) ){
+			if( favs.length == 0 || favs.every( favIterator => favIterator.id != fav[0].id ) ){
 				localStorage.setItem("favs",JSON.stringify([...favs, fav[0] ] ) )
 			}
 		}else{

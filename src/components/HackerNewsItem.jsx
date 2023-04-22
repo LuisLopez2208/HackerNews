@@ -25,8 +25,7 @@ export const HackerNewsItem = ({
 		return "Date"
 	}
 	const handleFavClick = () => {	
-		setFavState(!favState)
-		
+		setFavState(!favState)	
 	}
 	useEffect( () => {
 		setAFav([{

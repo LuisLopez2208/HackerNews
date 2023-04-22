@@ -5,7 +5,7 @@ import
 	Select, 
 	{components} 
 from 'react-select'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 export const HackerNewsFilter = ({
 	getNews, 
 	isAll,
@@ -26,11 +26,16 @@ export const HackerNewsFilter = ({
             label: "Vuejs"
         }
     ]
-    const [selectedNews, setSelectedNews] = useState(options[0]);
+    const [selectedNews, setSelectedNews] = useState(JSON.parse(localStorage.getItem('news')) ?? {});
+		const [active, setIsActive ] = useState(true)
     const handleChange = value => {
         setSelectedNews(value);
         getNews(value)
+				
     };
+		useEffect(() => {
+			localStorage.setItem("news",JSON.stringify( selectedNews ) )
+		}, [selectedNews])
     const Option = props => (
         <components.Option {...props} className="newsOption">
             <img src={props.data.icon} alt="logo" className="newsLogo"/> {props.data.label}
@@ -47,21 +52,24 @@ export const HackerNewsFilter = ({
 		const handleFavClick = event => {
 			event.preventDefault()
 			getFavs()
+			setIsActive(!active)
 		}
 		const handleAllClick = event => {
 			event.preventDefault()
-			getNews({value: "angular"})
+			getNews(JSON.parse(localStorage.getItem('news')))
+			setIsActive(!active)
 		}
     return (
         <form>
             <div className="btnForm">
-                <button onClick={ handleAllClick } className="btnLeft btnFilter active">All</button>
-                <button onClick={ handleFavClick } className="btnRight btnFilter">My faves</button>
+                <button onClick={ handleAllClick } className={`btnLeft btnFilter ${active ? "active" : ""}`}>All</button>
+                <button onClick={ handleFavClick } className={`btnRight btnFilter ${!active ? "active" : ""}`}>My faves</button>
             </div>
             <div>
                 {
                     isAll && (
                         <Select
+														value={selectedNews}
                             placeholder="Select your news"
                             onChange={handleChange}
                             className="dropNews"
